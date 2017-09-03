@@ -4,19 +4,19 @@
         "watch": true,
         "experimentalDecorators": true,
         "module":"none",
-        "outFile": "index.js",
+        "outFile": "../index.js",
         "sourceMap": true,
         "declaration": true
     },
     "include": [
-        "src/**/*"
+        "**/*"
     ],
     "files": [
-        "node_modules/typescript/lib/lib.es6.d.ts"
+        "../node_modules/typescript/lib/lib.es6.d.ts"
     ],
     "exclude": [
-        "node_modules",
-        "tests",
-        "dist"
+        "../node_modules",
+        "../tests",
+        "../dist"
     ]
 }

@@ -8,6 +8,7 @@ function loadScript(file){
 }
 
 loadScript("index.js");
+loadScript("tests/build/tests.js");
 
 var p = WebAtoms.Unit.TestRunner.instance.run();
 

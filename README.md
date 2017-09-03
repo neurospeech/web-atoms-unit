@@ -57,7 +57,7 @@ Create a `run-tests.js` file
 ```html
     <html>
     <head>
-        <script src="//cdn.jsdelivr.net/npm/web-atoms-unit@1.0.3/index.js"></script>
+        <script src="//cdn.jsdelivr.net/npm/web-atoms-unit@1.0.4/index.js"></script>
     </head>
     <body>
         <script>

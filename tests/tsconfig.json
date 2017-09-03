@@ -1,0 +1,23 @@
+{
+    "compilerOptions": {
+        "target": "es5",
+        "watch": true,
+        "experimentalDecorators": true,
+        "module":"none",
+        "outFile": "build/tests.js",
+        "sourceMap": true,
+        "declaration": false
+    },
+    "include": [
+        "**/*"
+    ],
+    "files": [
+        "../node_modules/typescript/lib/lib.es6.d.ts",
+        "../index.d.ts"
+    ],
+    "exclude": [
+        "../node_modules",
+        "../src",
+        "../dist"
+    ]
+}

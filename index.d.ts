@@ -56,5 +56,3 @@ declare namespace WebAtoms.Unit {
 declare namespace WebAtoms.Unit {
     function Test(name?: string): (target: TestItem, propertyKey: string, descriptor: any) => void;
 }
-declare namespace WebAtoms.Unit.Tests {
-}

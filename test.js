@@ -1,14 +1,13 @@
 var fs = require("fs");
 var vm = require("vm");
 
-function scriptFile(file){
+function loadScript(file){
     var s = fs.readFileSync(file,'utf-8');
-    return new vm.Script(s, { filename: file });
+    var script = new vm.Script(s, { filename: file });
+    script.runInThisContext();
 }
 
-var index = scriptFile("index.js");
-index.runInThisContext();
-
+loadScript("index.js");
 
 var p = WebAtoms.Unit.TestRunner.instance.run();
 

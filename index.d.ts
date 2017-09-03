@@ -41,7 +41,13 @@ declare namespace WebAtoms.Unit {
 }
 declare namespace WebAtoms.Unit {
     class Assert {
-        static equals(result: any, expected: any): void;
+        static equals(expected: any, result: any, msg?: string): void;
+        static doesNotEqual(expected: any, result: any, msg?: string): void;
+        static throws(expected: string, f: () => any, msg?: string): void;
+        static throwsAsync(expected: string, f: () => Promise<any>, msg?: string): Promise<any>;
+        static isTrue(b: boolean, msg?: string): void;
+        static isFalse(b: boolean, msg?: string): void;
+        static throw(message: string): void;
     }
 }
 declare namespace WebAtoms.Unit {

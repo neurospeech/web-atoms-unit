@@ -30,7 +30,8 @@ namespace WebAtoms.Unit{
 
             for(var result of this.executed){
                 if(result.error){
-                    console.error(`${result.category} > ${result.description} failed.`);
+
+                    console.error(`${result.category} > ${result.description} failed ${result.error.message}.`);
                     console.error(`\t`,result.error);
                 }else{
                     console.log(`${result.category} > ${result.description} succeeded.`);

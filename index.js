@@ -123,7 +123,7 @@ var WebAtoms;
                 for (var _i = 0, _a = this.executed; _i < _a.length; _i++) {
                     var result = _a[_i];
                     if (result.error) {
-                        console.error(result.category + " > " + result.description + " failed.");
+                        console.error(result.category + " > " + result.description + " failed " + result.error.message + ".");
                         console.error("\t", result.error);
                     }
                     else {
@@ -214,10 +214,59 @@ var WebAtoms;
         var Assert = /** @class */ (function () {
             function Assert() {
             }
-            Assert.equals = function (result, expected) {
+            Assert.equals = function (expected, result, msg) {
                 if (result !== expected) {
-                    throw new Unit.AssertError("Expected " + expected + " found " + result);
+                    Assert.throw(msg || "Expected " + expected + ", found " + result);
                 }
+            };
+            Assert.doesNotEqual = function (expected, result, msg) {
+                if (result === expected)
+                    Assert.throw(msg || "Not Expected " + expected + ", found " + result);
+            };
+            Assert.throws = function (expected, f, msg) {
+                try {
+                    f();
+                    Assert.throw(msg || "Expected " + expected + ", no exception was thrown.");
+                }
+                catch (e) {
+                    if (e.message != expected) {
+                        Assert.throw(msg || "Expected error " + expected + ", found " + e.message);
+                    }
+                }
+            };
+            Assert.throwsAsync = function (expected, f, msg) {
+                return __awaiter(this, void 0, void 0, function () {
+                    var e_2;
+                    return __generator(this, function (_a) {
+                        switch (_a.label) {
+                            case 0:
+                                _a.trys.push([0, 2, , 3]);
+                                return [4 /*yield*/, f()];
+                            case 1:
+                                _a.sent();
+                                Assert.throw(msg || "Expected " + expected + ", no exception was thrown.");
+                                return [3 /*break*/, 3];
+                            case 2:
+                                e_2 = _a.sent();
+                                if (e_2.message != expected) {
+                                    Assert.throw(msg || "Expected error " + expected + ", found " + e_2.message);
+                                }
+                                return [3 /*break*/, 3];
+                            case 3: return [2 /*return*/];
+                        }
+                    });
+                });
+            };
+            Assert.isTrue = function (b, msg) {
+                if (b !== true)
+                    Assert.throw(msg || "Expected isTrue");
+            };
+            Assert.isFalse = function (b, msg) {
+                if (b !== false)
+                    Assert.throw(msg || "Expected isFalse");
+            };
+            Assert.throw = function (message) {
+                throw new Unit.AssertError(message);
             };
             return Assert;
         }());
@@ -300,30 +349,83 @@ var WebAtoms;
                 function SampleTest() {
                     return _super !== null && _super.apply(this, arguments) || this;
                 }
-                SampleTest.prototype.test1 = function () {
-                    Unit.Assert.equals(2, 2);
+                SampleTest.prototype.add = function () {
+                    Unit.Assert.equals(4, 2 + 2);
+                    Unit.Assert.doesNotEqual(5, 2 + 2);
                 };
-                SampleTest.prototype.test2 = function () {
+                SampleTest.prototype.divide = function (a, b) {
+                    if (b == 0) {
+                        throw new Error("Division by zero");
+                    }
+                    return a / b;
+                };
+                SampleTest.prototype.divideByZero = function () {
+                    var _this = this;
+                    Unit.Assert.throws('Division by zero', function () {
+                        _this.divide(1, 0);
+                    });
+                };
+                // async...
+                SampleTest.prototype.asyncTest = function () {
                     return __awaiter(this, void 0, void 0, function () {
                         return __generator(this, function (_a) {
                             switch (_a.label) {
-                                case 0:
-                                    Unit.Assert.equals(2, 2);
-                                    return [4 /*yield*/, this.delay(100)];
+                                case 0: 
+                                // this.delay(100) is inbuilt
+                                // function, you can use any
+                                // promise to await
+                                return [4 /*yield*/, this.delay(100)];
                                 case 1:
+                                    // this.delay(100) is inbuilt
+                                    // function, you can use any
+                                    // promise to await
                                     _a.sent();
-                                    Unit.Assert.equals(5, 2);
+                                    Unit.Assert.equals(2, 2);
+                                    return [2 /*return*/];
+                            }
+                        });
+                    });
+                };
+                SampleTest.prototype.asyncThrows = function () {
+                    return __awaiter(this, void 0, void 0, function () {
+                        var _this = this;
+                        return __generator(this, function (_a) {
+                            switch (_a.label) {
+                                case 0: 
+                                // catches exception on 
+                                // asynchronous result
+                                return [4 /*yield*/, Unit.Assert.throwsAsync('Division by zero', function () { return __awaiter(_this, void 0, void 0, function () {
+                                        return __generator(this, function (_a) {
+                                            switch (_a.label) {
+                                                case 0: return [4 /*yield*/, this.delay(100)];
+                                                case 1:
+                                                    _a.sent();
+                                                    this.divide(1, 0);
+                                                    return [2 /*return*/];
+                                            }
+                                        });
+                                    }); })];
+                                case 1:
+                                    // catches exception on 
+                                    // asynchronous result
+                                    _a.sent();
                                     return [2 /*return*/];
                             }
                         });
                     });
                 };
                 __decorate([
-                    Unit.Test("Success Assert")
-                ], SampleTest.prototype, "test1", null);
+                    Unit.Test("Add")
+                ], SampleTest.prototype, "add", null);
                 __decorate([
-                    Unit.Test("Failed Assert")
-                ], SampleTest.prototype, "test2", null);
+                    Unit.Test("Divide by zero")
+                ], SampleTest.prototype, "divideByZero", null);
+                __decorate([
+                    Unit.Test("Async test")
+                ], SampleTest.prototype, "asyncTest", null);
+                __decorate([
+                    Unit.Test("Async throws")
+                ], SampleTest.prototype, "asyncThrows", null);
                 SampleTest = __decorate([
                     Unit.Category("Sample")
                 ], SampleTest);

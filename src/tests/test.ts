@@ -6,19 +6,51 @@ namespace WebAtoms.Unit.Tests{
     class SampleTest extends TestItem {
 
 
-        @Test("Success Assert")
-        test1(){
-
-            Assert.equals(2,2);
-
-
+        @Test("Add")
+        add():void{
+            Assert.equals(4, 2 + 2);
+            Assert.doesNotEqual(5, 2 + 2);
         }
 
-        @Test("Failed Assert")
-        async test2(): Promise<any>{
-            Assert.equals(2,2);
+        divide(a:number,b:number):number{
+            if(b==0){
+                throw new Error("Division by zero");
+            }
+            return a/b;
+        }
+
+        @Test("Divide by zero")
+        divideByZero():void{
+            Assert.throws('Division by zero', ()=>{
+                this.divide(1,0);
+            });
+        }
+
+
+        // async...
+        @Test("Async test")
+        async asyncTest():Promise<any>{
+
+            // this.delay(100) is inbuilt
+            // function, you can use any
+            // promise to await
             await this.delay(100);
-            Assert.equals(5,2);
+
+            Assert.equals(2,2);
+        }
+
+        @Test("Async throws")
+        async asyncThrows():Promise<any>{
+
+            // catches exception on 
+            // asynchronous result
+
+            await Assert.throwsAsync('Division by zero',
+                async ():Promise<any> =>{
+                    await this.delay(100);
+                    this.divide(1,0);
+                }
+            );
         }
 
     }

@@ -26,7 +26,15 @@ Create a `run-tests.js` file
         script.runInThisContext();
     }
 
+    // load web atoms mock
+    loadScript("./node_modules/web-atoms-unit/web-atoms-mock.js");
+
+    // load web atoms mvvm
+    loadScript("./node_modules/web-atoms-mvvm/dist/web-atoms-mvvm.js");
+
+    // load web atoms unit
     loadScript("./node_modules/web-atoms-unit/index.js");
+
 
     // load your tests..
     // ideally all typescript files should be transpiled into

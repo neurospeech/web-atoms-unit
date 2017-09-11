@@ -36,6 +36,9 @@ namespace WebAtoms.Unit{
                 }else{
                     console.log(`${result.category} > ${result.description} succeeded.`);
                 }
+                if(result.logText){
+                    console.log(`\t\t${result.logText}`);
+                }
             }
         }
 
@@ -78,6 +81,7 @@ namespace WebAtoms.Unit{
                 peek.error = e;
             }
             finally{
+                peek.logText = test.logText;
                 await test.dispose();
             }
 

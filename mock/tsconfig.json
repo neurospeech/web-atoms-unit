@@ -1,0 +1,22 @@
+{
+    "compilerOptions": {
+        "target": "es5",
+        "watch": true,
+        "experimentalDecorators": true,
+        "module":"none",
+        "outFile": "../web-atoms-mock.js",
+        "sourceMap": true,
+        "declaration": true
+    },
+    "include": [
+        "src/**/*"
+    ],
+    "files": [
+        "../node_modules/typescript/lib/lib.es6.d.ts"
+    ],
+    "exclude": [
+        "../node_modules",
+        "../tests",
+        "../dist"
+    ]
+}

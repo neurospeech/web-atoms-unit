@@ -13,10 +13,13 @@ declare namespace WebAtoms.Unit {
         description: any;
         testClass: any;
         error: any;
+        logText: string;
     }
     class TestItem {
+        logText: string;
         init(): Promise<any>;
         dispose(): Promise<any>;
+        log(text: string): void;
         delay(n: number): Promise<any>;
     }
 }

@@ -67,6 +67,7 @@ var WebAtoms;
         Unit.TestMethod = TestMethod;
         var TestItem = /** @class */ (function () {
             function TestItem() {
+                this.logText = "";
             }
             TestItem.prototype.init = function () {
                 return __awaiter(this, void 0, void 0, function () {
@@ -81,6 +82,11 @@ var WebAtoms;
                         return [2 /*return*/, 0];
                     });
                 });
+            };
+            TestItem.prototype.log = function (text) {
+                if (text) {
+                    this.logText += text;
+                }
             };
             TestItem.prototype.delay = function (n) {
                 return new Promise(function (resolve, reject) {
@@ -129,6 +135,9 @@ var WebAtoms;
                     else {
                         console.log(result.category + " > " + result.description + " succeeded.");
                     }
+                    if (result.logText) {
+                        console.log("\t\t" + result.logText);
+                    }
                 }
             };
             TestRunner.prototype.runTest = function (f, target) {
@@ -174,7 +183,9 @@ var WebAtoms;
                                 e_1 = _a.sent();
                                 peek.error = e_1;
                                 return [3 /*break*/, 7];
-                            case 5: return [4 /*yield*/, test.dispose()];
+                            case 5:
+                                peek.logText = test.logText;
+                                return [4 /*yield*/, test.dispose()];
                             case 6:
                                 _a.sent();
                                 return [7 /*endfinally*/];

@@ -36,9 +36,13 @@ namespace WebAtoms.Unit {
         testClass: any;
 
         error:any;
+
+        logText: string;
     }
 
     export class TestItem{
+
+        logText:string = "";
 
         async init():Promise<any>{
             return 0;
@@ -46,6 +50,12 @@ namespace WebAtoms.Unit {
 
         async dispose():Promise<any>{
             return 0;
+        }
+
+        log(text:string){
+            if(text){
+                this.logText += text;
+            }
         }
 
         delay(n:number):Promise<any>{

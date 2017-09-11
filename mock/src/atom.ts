@@ -98,6 +98,38 @@ class AtomPromise{
             f();
         }    
     };
+
+    Atom.get = function(item:any, property:string){
+        if(!item)
+            return;
+        for(var p of property.split(".")){
+            item = AtomBinder.getValue(item,p);
+            if(!item)
+                break;
+        }
+        return item;
+    }
+
+    Atom.set = function(item:any, property: string, value: any){
+        if(!item)
+            return;
+        var last = null;
+        var lastProperty = null;
+        for(var p of property.split(".")){
+            if(last){
+                last = AtomBinder.getValue(last,lastProperty);
+                if(!last)
+                    return;
+            }
+            else{
+                last = item;
+            }
+            lastProperty = p;
+        }
+        if(!last)
+            return;
+        AtomBinder.setValue(last,lastProperty,value);
+    }
     
     window["Atom"] = Atom;
     

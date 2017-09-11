@@ -79,6 +79,38 @@ Atom.refresh = function (item, property) {
         f();
     }
 };
+Atom.get = function (item, property) {
+    if (!item)
+        return;
+    for (var _i = 0, _a = property.split("."); _i < _a.length; _i++) {
+        var p = _a[_i];
+        item = AtomBinder.getValue(item, p);
+        if (!item)
+            break;
+    }
+    return item;
+};
+Atom.set = function (item, property, value) {
+    if (!item)
+        return;
+    var last = null;
+    var lastProperty = null;
+    for (var _i = 0, _a = property.split("."); _i < _a.length; _i++) {
+        var p = _a[_i];
+        if (last) {
+            last = AtomBinder.getValue(last, lastProperty);
+            if (!last)
+                return;
+        }
+        else {
+            last = item;
+        }
+        lastProperty = p;
+    }
+    if (!last)
+        return;
+    AtomBinder.setValue(last, lastProperty, value);
+};
 window["Atom"] = Atom;
 var AtomBinder = {
     getClone: function (dupeObj) {

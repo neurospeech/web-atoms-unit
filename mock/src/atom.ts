@@ -115,7 +115,6 @@ class AtomPromise{
             return;
         var last = null;
         var lastProperty = null;
-        debugger;
         for(var p of property.split(".")){
             if(last){
                 last = AtomBinder.getValue(last,lastProperty);

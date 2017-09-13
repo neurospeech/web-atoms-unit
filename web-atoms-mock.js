@@ -95,7 +95,6 @@ Atom.set = function (item, property, value) {
         return;
     var last = null;
     var lastProperty = null;
-    debugger;
     for (var _i = 0, _a = property.split("."); _i < _a.length; _i++) {
         var p = _a[_i];
         if (last) {

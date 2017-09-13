@@ -55,11 +55,18 @@ var WebAtoms;
     (function (Unit) {
         var Tests;
         (function (Tests) {
+            var Atom = window["Atom"];
             var SampleTest = /** @class */ (function (_super) {
                 __extends(SampleTest, _super);
                 function SampleTest() {
-                    return _super !== null && _super.apply(this, arguments) || this;
+                    var _this = _super !== null && _super.apply(this, arguments) || this;
+                    _this.data = {};
+                    return _this;
                 }
+                SampleTest.prototype.atomSet = function () {
+                    Atom.set(this, "data.firstName", "s");
+                    Unit.Assert.equals(this.data.firstName, "s");
+                };
                 SampleTest.prototype.add = function () {
                     Unit.Assert.equals(4, 2 + 2);
                     Unit.Assert.doesNotEqual(5, 2 + 2);
@@ -125,6 +132,9 @@ var WebAtoms;
                         });
                     });
                 };
+                __decorate([
+                    Unit.Test("Atom.set")
+                ], SampleTest.prototype, "atomSet", null);
                 __decorate([
                     Unit.Test("Add")
                 ], SampleTest.prototype, "add", null);

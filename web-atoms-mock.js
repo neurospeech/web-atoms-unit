@@ -95,6 +95,7 @@ Atom.set = function (item, property, value) {
         return;
     var last = null;
     var lastProperty = null;
+    debugger;
     for (var _i = 0, _a = property.split("."); _i < _a.length; _i++) {
         var p = _a[_i];
         if (last) {
@@ -310,7 +311,9 @@ var AtomBinder = {
         AtomBinder.setValue(errors, key, message);
     }
 };
-//window["AtomBinder"] = AtomBinder;
+if (!window["AtomBinder"]) {
+    window["AtomBinder"] = AtomBinder;
+}
 for (var item in AtomBinder) {
     window["AtomBinder"][item] = AtomBinder[item];
 }

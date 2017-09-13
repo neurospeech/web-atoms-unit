@@ -1,12 +1,19 @@
 var fs = require("fs");
 var vm = require("vm");
 
+global.window = {
+    Atom:{
+        
+    }
+};
+
 function loadScript(file){
     var s = fs.readFileSync(file,'utf-8');
     var script = new vm.Script(s, { filename: file });
     script.runInThisContext();
 }
 
+loadScript("web-atoms-mock.js");
 loadScript("index.js");
 loadScript("tests/build/tests.js");
 

@@ -115,6 +115,7 @@ class AtomPromise{
             return;
         var last = null;
         var lastProperty = null;
+        debugger;
         for(var p of property.split(".")){
             if(last){
                 last = AtomBinder.getValue(last,lastProperty);
@@ -331,7 +332,9 @@ class AtomPromise{
     
     };
     
-    //window["AtomBinder"] = AtomBinder;
+    if(!window["AtomBinder"]){
+        window["AtomBinder"] = AtomBinder;
+    }
     for(var item in AtomBinder){
         window["AtomBinder"][item] = AtomBinder[item];
     }

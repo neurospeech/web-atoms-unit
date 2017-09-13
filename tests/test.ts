@@ -2,8 +2,20 @@
 
 namespace WebAtoms.Unit.Tests{
 
+    var Atom = window["Atom"];
+
     @Category("Sample")
     class SampleTest extends TestItem {
+
+        data:any = {};
+
+        @Test("Atom.set")
+        atomSet()
+        {
+            Atom.set(this,"data.firstName","s");
+
+            Assert.equals(this.data.firstName,"s");
+        }
 
 
         @Test("Add")

@@ -65,7 +65,8 @@ var WebAtoms;
                 }
                 SampleTest.prototype.atomSet = function () {
                     Atom.set(this, "data.firstName", "s");
-                    Unit.Assert.equals(this.data.firstName, "s");
+                    var a = Atom.get(this, "data.firstName");
+                    Unit.Assert.equals("s", a);
                 };
                 SampleTest.prototype.add = function () {
                     Unit.Assert.equals(4, 2 + 2);

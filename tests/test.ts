@@ -14,7 +14,9 @@ namespace WebAtoms.Unit.Tests{
         {
             Atom.set(this,"data.firstName","s");
 
-            Assert.equals(this.data.firstName,"s");
+            var a = Atom.get(this,"data.firstName");
+
+            Assert.equals("s",a);
         }
 
 

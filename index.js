@@ -142,17 +142,22 @@ var WebAtoms;
             };
             TestRunner.prototype.runTest = function (f, target) {
                 return new Promise(function (resolve, reject) {
-                    var t = f.apply(target);
-                    if (t && t.then) {
-                        t.then(function (v) {
-                            resolve(v);
-                        });
-                        t.catch(function (e) {
-                            reject(e);
-                        });
-                        return;
+                    try {
+                        var t = f.apply(target);
+                        if (t && t.then) {
+                            t.then(function (v) {
+                                resolve(v);
+                            });
+                            t.catch(function (e) {
+                                reject(e);
+                            });
+                            return;
+                        }
+                        resolve();
                     }
-                    resolve();
+                    catch (ex) {
+                        reject(ex);
+                    }
                 });
             };
             TestRunner.prototype.run = function () {

@@ -44,17 +44,21 @@ namespace WebAtoms.Unit{
 
         runTest(f:any,target:any):Promise<any>{
             return new Promise((resolve,reject)=>{
-                var t = f.apply(target);
-                if(t && t.then){
-                    t.then(v=>{
-                        resolve(v);
-                    });
-                    t.catch(e=>{
-                        reject(e);
-                    });
-                    return;
+                try{
+                    var t = f.apply(target);
+                    if(t && t.then){
+                        t.then(v=>{
+                            resolve(v);
+                        });
+                        t.catch(e=>{
+                            reject(e);
+                        });
+                        return;
+                    }
+                    resolve();
+                }catch(ex){
+                    reject(ex);
                 }
-                resolve();
             });
         }
 

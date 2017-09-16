@@ -182,6 +182,7 @@ var WebAtoms;
                             case 4:
                                 e_1 = _a.sent();
                                 peek.error = e_1;
+                                console.error(e_1);
                                 return [3 /*break*/, 7];
                             case 5:
                                 peek.logText = test.logText;

@@ -130,7 +130,10 @@ var WebAtoms;
                     var result = _a[_i];
                     if (result.error) {
                         console.error(result.category + " > " + result.description + " failed " + result.error.message + ".");
-                        console.error("\t", result.error);
+                        console.error("\t" + result.error);
+                        if (result.error.stack) {
+                            console.error("t\t" + result.error.stack);
+                        }
                     }
                     else {
                         console.log(result.category + " > " + result.description + " succeeded.");

@@ -187,7 +187,6 @@ var WebAtoms;
                             case 4:
                                 e_1 = _a.sent();
                                 peek.error = e_1;
-                                console.error(e_1);
                                 return [3 /*break*/, 7];
                             case 5:
                                 peek.logText = test.logText;
@@ -211,19 +210,6 @@ var WebAtoms;
 // setTimeout(()=>{
 //     WebAtoms.Unit.TestRunner.instance.run();
 // },100); 
-var WebAtoms;
-(function (WebAtoms) {
-    var Unit;
-    (function (Unit) {
-        var AssertError = /** @class */ (function () {
-            function AssertError(message) {
-                this.message = message;
-            }
-            return AssertError;
-        }());
-        Unit.AssertError = AssertError;
-    })(Unit = WebAtoms.Unit || (WebAtoms.Unit = {}));
-})(WebAtoms || (WebAtoms = {}));
 var WebAtoms;
 (function (WebAtoms) {
     var Unit;
@@ -283,7 +269,7 @@ var WebAtoms;
                     Assert.throw(msg || "Expected isFalse");
             };
             Assert.throw = function (message) {
-                throw new Unit.AssertError(message);
+                throw new Error("Assertion Failed, " + message);
             };
             return Assert;
         }());

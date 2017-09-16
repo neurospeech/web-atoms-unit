@@ -61,7 +61,7 @@ namespace WebAtoms.Unit{
         }
 
         static throw(message:string){
-            throw new AssertError(message);
+            throw new Error(`Assertion Failed, ${message}`);
         }
 
 

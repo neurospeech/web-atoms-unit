@@ -83,7 +83,6 @@ namespace WebAtoms.Unit{
                 await this.runTest(fx,test);
             }catch(e){
                 peek.error = e;
-                console.error(e);
             }
             finally{
                 peek.logText = test.logText;

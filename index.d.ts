@@ -36,11 +36,6 @@ declare namespace WebAtoms.Unit {
     }
 }
 declare namespace WebAtoms.Unit {
-    class AssertError implements Error {
-        name: string;
-        message: string;
-        constructor(message: string);
-    }
 }
 declare namespace WebAtoms.Unit {
     class Assert {

@@ -1,15 +1,15 @@
 namespace WebAtoms.Unit{
 
-    export class AssertError implements Error{
+    // export class AssertError implements Error{
 
-        name:string;
+    //     name:string;
 
-        message:string;
+    //     message:string;
 
-        constructor(message:string){
-            this.message = message;
-        }
+    //     constructor(message:string){
+    //         this.message = message;
+    //     }
 
-    }
+    // }
 
 }

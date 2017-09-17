@@ -162,7 +162,7 @@ var WebAtoms;
             };
             TestRunner.prototype.run = function () {
                 return __awaiter(this, void 0, void 0, function () {
-                    var peek, test, fx, e_1;
+                    var peek, test, fx, e_1, er_1;
                     return __generator(this, function (_a) {
                         switch (_a.label) {
                             case 0:
@@ -175,7 +175,7 @@ var WebAtoms;
                                 test = new peek.testClass;
                                 _a.label = 1;
                             case 1:
-                                _a.trys.push([1, 4, 5, 7]);
+                                _a.trys.push([1, 4, 5, 10]);
                                 return [4 /*yield*/, test.init()];
                             case 2:
                                 _a.sent();
@@ -183,19 +183,27 @@ var WebAtoms;
                                 return [4 /*yield*/, this.runTest(fx, test)];
                             case 3:
                                 _a.sent();
-                                return [3 /*break*/, 7];
+                                return [3 /*break*/, 10];
                             case 4:
                                 e_1 = _a.sent();
                                 peek.error = e_1;
-                                return [3 /*break*/, 7];
+                                return [3 /*break*/, 10];
                             case 5:
                                 peek.logText = test.logText;
-                                return [4 /*yield*/, test.dispose()];
+                                _a.label = 6;
                             case 6:
+                                _a.trys.push([6, 8, , 9]);
+                                return [4 /*yield*/, test.dispose()];
+                            case 7:
                                 _a.sent();
-                                return [7 /*endfinally*/];
-                            case 7: return [4 /*yield*/, this.run()];
+                                return [3 /*break*/, 9];
                             case 8:
+                                er_1 = _a.sent();
+                                peek.error = er_1;
+                                return [3 /*break*/, 9];
+                            case 9: return [7 /*endfinally*/];
+                            case 10: return [4 /*yield*/, this.run()];
+                            case 11:
                                 _a.sent();
                                 return [2 /*return*/];
                         }

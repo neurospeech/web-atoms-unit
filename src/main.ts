@@ -86,7 +86,11 @@ namespace WebAtoms.Unit{
             }
             finally{
                 peek.logText = test.logText;
-                await test.dispose();
+                try{
+                    await test.dispose();
+                }catch(er){
+                    peek.error = er;
+                }
             }
 
             await this.run();

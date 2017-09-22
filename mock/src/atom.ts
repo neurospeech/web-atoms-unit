@@ -189,10 +189,13 @@ class AtomPromise{
             var handlers = AtomBinder.get_WatchHandler(target, key);
             if (handlers == undefined || handlers == null)
                 return;
-            var ae = new AtomEnumerator(handlers);
-            while (ae.next()) {
-                var item = ae.current();
-                item(target, key,oldValue,value);
+            // var ae = new AtomEnumerator(handlers);
+            // while (ae.next()) {
+            //     var item = ae.current();
+            //     item(target, key,oldValue,value);
+            // }
+            for(var h of handlers){
+                h(target,key, oldValue, value);
             }
     
             if (target._$_watcher) {
@@ -223,7 +226,7 @@ class AtomPromise{
                 target._$_handlers = handlers;
             }
             var handlersForKey = handlers[key];
-            if (handlersForKey == undefined || handlersForKey == null) {
+            if (!handlersForKey) {
                 handlersForKey = [];
                 handlers[key] = handlersForKey;
             }

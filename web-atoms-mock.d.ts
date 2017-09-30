@@ -17,6 +17,7 @@ declare class Dispatcher {
     callLater(f: () => void): void;
     run(): void;
 }
+declare var WebAtoms: any;
 declare var AtomDate: any;
 declare class AtomEnumerator {
     a: any;

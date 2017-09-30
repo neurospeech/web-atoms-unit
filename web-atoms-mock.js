@@ -83,8 +83,8 @@ var Dispatcher = /** @class */ (function () {
     };
     return Dispatcher;
 }());
-window["WebAtoms"]["dispatcher"] = new Dispatcher();
-debugger;
+var WebAtoms = window["WebAtoms"];
+WebAtoms["dispatcher"] = new Dispatcher();
 var AtomDate = window["AtomDate"];
 var AtomEnumerator = /** @class */ (function () {
     function AtomEnumerator(a) {

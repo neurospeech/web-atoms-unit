@@ -99,7 +99,7 @@ class AtomPromise{
     }
 
     window["WebAtoms"]["dispatcher"] = new Dispatcher();
-    
+    debugger;
     var AtomDate = window["AtomDate"];
     
     class AtomEnumerator{

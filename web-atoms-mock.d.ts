@@ -11,6 +11,12 @@ declare class AtomPromise {
     invoke(r: any, f: any): void;
 }
 declare var Atom: any;
+declare class Dispatcher {
+    head: any;
+    tail: any;
+    callLater(f: () => void): void;
+    run(): void;
+}
 declare var AtomDate: any;
 declare class AtomEnumerator {
     a: any;

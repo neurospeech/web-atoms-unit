@@ -1,3 +1,5 @@
+// tslint:disable
+
 // Test dummy
 // Do not use in live
 
@@ -61,6 +63,42 @@ class AtomPromise{
     
         return pr;
     };
+
+    Atom.post = function(f:()=>void){
+
+    }
+
+    class Dispatcher {
+        head: any;
+        tail:any;
+        callLater(f:()=>void):void {
+            if(this.tail){
+                this.tail.next = f;
+                this.tail = f;
+            }else{
+                this.head = f;
+                this.tail = f;
+            }
+            this.run();
+        }
+
+        run():void {
+            setTimeout(()=>{
+                var item = this.head;
+                if(!item)
+                    return;
+                this.head = item.next;
+                item.next = null;
+                item();
+                if(!this.head){
+                    this.tail = null;
+                }
+                this.run();
+            },1);
+        }
+    }
+
+    window["WebAtoms"]["dispatcher"] = new Dispatcher();
     
     var AtomDate = window["AtomDate"];
     

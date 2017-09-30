@@ -1,3 +1,4 @@
+// tslint:disable
 // Test dummy
 // Do not use in live
 var AtomPromise = /** @class */ (function () {
@@ -49,6 +50,40 @@ Atom.json = function (url, options) {
     var pr = new AtomPromise();
     return pr;
 };
+Atom.post = function (f) {
+};
+var Dispatcher = /** @class */ (function () {
+    function Dispatcher() {
+    }
+    Dispatcher.prototype.callLater = function (f) {
+        if (this.tail) {
+            this.tail.next = f;
+            this.tail = f;
+        }
+        else {
+            this.head = f;
+            this.tail = f;
+        }
+        this.run();
+    };
+    Dispatcher.prototype.run = function () {
+        var _this = this;
+        setTimeout(function () {
+            var item = _this.head;
+            if (!item)
+                return;
+            _this.head = item.next;
+            item.next = null;
+            item();
+            if (!_this.head) {
+                _this.tail = null;
+            }
+            _this.run();
+        }, 1);
+    };
+    return Dispatcher;
+}());
+window["WebAtoms"]["dispatcher"] = new Dispatcher();
 var AtomDate = window["AtomDate"];
 var AtomEnumerator = /** @class */ (function () {
     function AtomEnumerator(a) {

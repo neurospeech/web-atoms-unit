@@ -1,18 +1,18 @@
-namespace WebAtoms.Unit{
+namespace WebAtoms.Unit {
 
-    
 
-    export class TestRunner{
+
+    export class TestRunner {
 
         private static _instance:TestRunner;
         static get instance(): TestRunner{
-            if(!TestRunner._instance){
+            if(!TestRunner._instance) {
                 TestRunner._instance = new TestRunner();
             }
             return TestRunner._instance;
         }
 
-        constructor(){
+        constructor() {
             this.tests = [];
             this.executed = [];
         }
@@ -20,7 +20,7 @@ namespace WebAtoms.Unit{
         tests:Array<TestMethod>;
         executed:Array<TestMethod>;
 
-        printAll():void{
+        printAll():void {
             // var results = this.executed.sort((a,b)=>{
             //     return a.testClass.category.localeCompare(b.testClass.category);
             // });
@@ -29,78 +29,107 @@ namespace WebAtoms.Unit{
             // });
 
             for(var result of this.executed){
-                if(result.error){
+                if(result.error) {
 
                     console.error(`${result.category} > ${result.description} failed ${result.error.message}.`);
                     console.error(result.error);
-                }else{
+                }else {
                     console.log(`${result.category} > ${result.description} succeeded.`);
                 }
-                if(result.logText){
+                if(result.logText) {
                     console.log(`\t\t${result.logText}`);
                 }
             }
         }
 
-        runTest(f:any,target:any):Promise<any>{
-            return new Promise((resolve,reject)=>{
-                try{
-                    var t = f.apply(target);
-                    if(t && t.then){
-                        t.then(v=>{
+        runTest(f:any,target:any):Promise<any> {
+            return new Promise((resolve,reject)=> {
+                try {
+                    var t:any = f.apply(target);
+                    if(t && t.then) {
+                        t.then(v=> {
                             resolve(v);
                         });
-                        t.catch(e=>{
+                        t.catch(e=> {
                             reject(e);
                         });
                         return;
                     }
                     resolve();
-                }catch(ex){
+                }catch(ex) {
                     reject(ex);
                 }
             });
         }
 
-        async run():Promise<any>{
 
-            if(this.tests.length==0){
+        async run(filter: string):Promise<any> {
+
+
+            if(filter) {
+                var r:RegExp = null;
+                if(filter.startsWith("/")) {
+                    var index:number = filter.lastIndexOf("/");
+                    var options:string = filter.substr(index+1);
+                    filter = filter.substr(0,index);
+                    var exp:string = filter.substr(1);
+
+                    r = new RegExp(exp,options );
+
+                    this.tests = this.tests.filter( x => r.test(x.category) );
+
+                }else {
+                    var categories:string[] = filter.split(",").map(x => x.trim().toLowerCase());
+                    this.tests = this.tests.filter( x => {
+                        var lc:string = x.category.toLowerCase();
+                        var b:any = categories.find( c => c === lc );
+                        return b;
+                    });
+                }
+            }
+
+
+
+            return this._run();
+
+        }
+
+
+        async _run():Promise<any> {
+
+            if(this.tests.length === 0) {
                 this.printAll();
                 return;
             }
 
-            var peek = this.tests.shift();
+            var peek:TestMethod = this.tests.shift();
 
             this.executed.push(peek);
 
-            var test = new (peek.testClass as {new ()});
+            var test:TestItem = new (peek.testClass as {new ()});
 
-            try{
+            try {
                 await test.init();
 
-                var fx = test[peek.name];
+                var fx:Function = test[peek.name];
 
                 await this.runTest(fx,test);
-            }catch(e){
+            }catch(e) {
                 peek.error = e;
             }
-            finally{
+            finally {
                 peek.logText = test.logText;
-                try{
+                try {
                     await test.dispose();
-                }catch(er){
+                }catch(er) {
                     peek.error = er;
                 }
             }
 
-            await this.run();
-            
+            await this._run();
+
         }
 
     }
 
 }
-
-// setTimeout(()=>{
-//     WebAtoms.Unit.TestRunner.instance.run();
-// },100);

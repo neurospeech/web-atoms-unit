@@ -10,6 +10,9 @@
             "request": "launch",
             "name": "Launch Tests",
             "program": "${workspaceRoot}/test.js",
+            "args": [
+                "sampletest"
+            ],
             "outFiles": [
                 "${workspaceRoot}/out/**/*.js"
             ]

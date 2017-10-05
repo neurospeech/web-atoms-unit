@@ -4,8 +4,13 @@ var vm = require("vm");
 global.window = {
     Atom:{
         
+    },
+    WebAtoms: {
+
     }
 };
+
+global.WebAtoms = global.window.WebAtoms;
 
 function loadScript(file){
     var s = fs.readFileSync(file,'utf-8');
@@ -17,7 +22,7 @@ loadScript("web-atoms-mock.js");
 loadScript("index.js");
 loadScript("tests/build/tests.js");
 
-var p = WebAtoms.Unit.TestRunner.instance.run();
+var p = WebAtoms.Unit.TestRunner.instance.run(process.argv[2]);
 
 p.then(function(){
     process.exit();

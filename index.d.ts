@@ -32,7 +32,8 @@ declare namespace WebAtoms.Unit {
         executed: Array<TestMethod>;
         printAll(): void;
         runTest(f: any, target: any): Promise<any>;
-        run(): Promise<any>;
+        run(filter: string): Promise<any>;
+        _run(): Promise<any>;
     }
 }
 declare namespace WebAtoms.Unit {
@@ -52,5 +53,5 @@ declare namespace WebAtoms.Unit {
     function Category(name: string): (target: any) => any;
 }
 declare namespace WebAtoms.Unit {
-    function Test(name?: string): (target: TestItem, propertyKey: string, descriptor: any) => void;
+    function Test(name?: string): Function;
 }

@@ -43,7 +43,7 @@ Create a `run-tests.js` file
     
     // .. so on.. you can write a script to load many files....
 
-    var p = WebAtoms.Unit.TestRunner.instance.run();
+    var p = WebAtoms.Unit.TestRunner.instance.run(process.argv[2]);
 
     p.then(function(){
         process.exit();
@@ -56,8 +56,15 @@ Create a `run-tests.js` file
 
 ```
 
-```command
+```node
+    // run all tests
     node run-tests.js
+
+    // run tests by filtering categories provided by comma separated categories
+    node run-tests.js categories,categories
+
+    // run tests by filtering categories provided by regular expressions
+    node run-tests.js /regex/i
 ```
 
 ## Running with browser

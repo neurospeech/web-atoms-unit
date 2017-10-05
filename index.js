@@ -160,13 +160,40 @@ var WebAtoms;
                     }
                 });
             };
-            TestRunner.prototype.run = function () {
+            TestRunner.prototype.run = function (filter) {
+                return __awaiter(this, void 0, void 0, function () {
+                    var r, index, options, exp, categories;
+                    return __generator(this, function (_a) {
+                        if (filter) {
+                            r = null;
+                            if (filter.startsWith("/")) {
+                                index = filter.lastIndexOf("/");
+                                options = filter.substr(index + 1);
+                                filter = filter.substr(0, index);
+                                exp = filter.substr(1);
+                                r = new RegExp(exp, options);
+                                this.tests = this.tests.filter(function (x) { return r.test(x.category); });
+                            }
+                            else {
+                                categories = filter.split(",").map(function (x) { return x.trim().toLowerCase(); });
+                                this.tests = this.tests.filter(function (x) {
+                                    var lc = x.category.toLowerCase();
+                                    var b = categories.find(function (c) { return c === lc; });
+                                    return b;
+                                });
+                            }
+                        }
+                        return [2 /*return*/, this._run()];
+                    });
+                });
+            };
+            TestRunner.prototype._run = function () {
                 return __awaiter(this, void 0, void 0, function () {
                     var peek, test, fx, e_1, er_1;
                     return __generator(this, function (_a) {
                         switch (_a.label) {
                             case 0:
-                                if (this.tests.length == 0) {
+                                if (this.tests.length === 0) {
                                     this.printAll();
                                     return [2 /*return*/];
                                 }
@@ -202,7 +229,7 @@ var WebAtoms;
                                 peek.error = er_1;
                                 return [3 /*break*/, 9];
                             case 9: return [7 /*endfinally*/];
-                            case 10: return [4 /*yield*/, this.run()];
+                            case 10: return [4 /*yield*/, this._run()];
                             case 11:
                                 _a.sent();
                                 return [2 /*return*/];
@@ -215,9 +242,6 @@ var WebAtoms;
         Unit.TestRunner = TestRunner;
     })(Unit = WebAtoms.Unit || (WebAtoms.Unit = {}));
 })(WebAtoms || (WebAtoms = {}));
-// setTimeout(()=>{
-//     WebAtoms.Unit.TestRunner.instance.run();
-// },100); 
 var WebAtoms;
 (function (WebAtoms) {
     var Unit;
@@ -326,7 +350,7 @@ var WebAtoms;
     (function (Unit) {
         function Test(name) {
             return function (target, propertyKey, descriptor) {
-                //console.log(`Test called for ${target.constructor.name} in ${propertyKey}`)
+                // console.log(`Test called for ${target.constructor.name} in ${propertyKey}`)
                 Unit.TestRunner.instance.tests.push(new Unit.TestMethod(name || propertyKey, propertyKey, target.constructor.name, target.constructor));
             };
         }

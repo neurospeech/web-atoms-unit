@@ -35,6 +35,10 @@ namespace WebAtoms.Unit {
 
         testClass: any;
 
+        get path(): string {
+            return `${this.category}/${this.name}`;
+        }
+
         error:any;
 
         logText: string;

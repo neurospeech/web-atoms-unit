@@ -62,6 +62,13 @@ var WebAtoms;
                 this.category = category;
                 this.testClass = target;
             }
+            Object.defineProperty(TestMethod.prototype, "path", {
+                get: function () {
+                    return this.category + "/" + this.name;
+                },
+                enumerable: true,
+                configurable: true
+            });
             return TestMethod;
         }());
         Unit.TestMethod = TestMethod;
@@ -172,13 +179,14 @@ var WebAtoms;
                                 filter = filter.substr(0, index);
                                 exp = filter.substr(1);
                                 r = new RegExp(exp, options);
-                                this.tests = this.tests.filter(function (x) { return r.test(x.category); });
+                                this.tests = this.tests.filter(function (x) { return r.test(x.path); });
                             }
                             else {
-                                categories = filter.split(",").map(function (x) { return x.trim().toLowerCase(); });
+                                categories = filter.split(",").map(function (x) { return x.trim().toLowerCase().split("."); });
                                 this.tests = this.tests.filter(function (x) {
                                     var lc = x.category.toLowerCase();
-                                    var b = categories.find(function (c) { return c === lc; });
+                                    var ln = x.name.toLowerCase();
+                                    var b = categories.find(function (c) { return c[0] === lc && ((!c[1]) || (c[1] === ln)); });
                                     return b;
                                 });
                             }

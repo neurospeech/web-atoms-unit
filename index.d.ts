@@ -12,6 +12,7 @@ declare namespace WebAtoms.Unit {
         category: string;
         description: any;
         testClass: any;
+        readonly path: string;
         error: any;
         logText: string;
     }

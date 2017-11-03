@@ -76,13 +76,14 @@ namespace WebAtoms.Unit {
 
                     r = new RegExp(exp,options );
 
-                    this.tests = this.tests.filter( x => r.test(x.category) );
+                    this.tests = this.tests.filter( x => r.test(x.path) );
 
                 }else {
-                    var categories:string[] = filter.split(",").map(x => x.trim().toLowerCase());
+                    var categories:Array<string[]> = filter.split(",").map(x => x.trim().toLowerCase().split("."));
                     this.tests = this.tests.filter( x => {
                         var lc:string = x.category.toLowerCase();
-                        var b:any = categories.find( c => c === lc );
+                        var ln:string = x.name.toLowerCase();
+                        var b:any = categories.find( c => c[0] === lc && ((!c[1]) || ( c[1] === ln  )));
                         return b;
                     });
                 }

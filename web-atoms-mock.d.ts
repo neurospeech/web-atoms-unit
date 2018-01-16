@@ -5,6 +5,21 @@ declare namespace WebAtoms {
         init(): void;
     }
 }
+declare namespace WebAtoms {
+    class AtomUI {
+        static parseValue(val: any): any;
+        static parseUrl(url: string): any;
+    }
+}
+declare namespace WebAtoms {
+    class AtomUri {
+        path: string;
+        port: string;
+        protocol: string;
+        host: string;
+        constructor(url: string);
+    }
+}
 declare class AtomPromise {
     aborted: boolean;
     success: Array<() => void>;

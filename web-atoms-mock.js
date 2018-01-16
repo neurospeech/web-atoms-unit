@@ -11,6 +11,107 @@ var WebAtoms;
     }());
     WebAtoms.AtomControl = AtomControl;
 })(WebAtoms || (WebAtoms = {}));
+var WebAtoms;
+(function (WebAtoms) {
+    var AtomUI = /** @class */ (function () {
+        function AtomUI() {
+        }
+        AtomUI.parseValue = function (val) {
+            var n;
+            if (/^[0-9]+$/.test(val)) {
+                n = parseInt(val, 10);
+                if (!isNaN(n)) {
+                    val = n;
+                }
+                return val;
+            }
+            if (/^[0-9]+\.[0-9]+/gi.test(val)) {
+                n = parseFloat(val);
+                if (!isNaN(n)) {
+                    val = n;
+                }
+                return val;
+            }
+            if (/true/.test(val)) {
+                val = true;
+                return val;
+            }
+            if (/false/.test(val)) {
+                val = false;
+                return val;
+            }
+            return val;
+        };
+        AtomUI.parseUrl = function (url) {
+            var r = {};
+            var plist = url.split("&");
+            for (var _i = 0, plist_1 = plist; _i < plist_1.length; _i++) {
+                var token = plist_1[_i];
+                var p = token.split("=");
+                var key = p[0];
+                var val = p[1];
+                if (val) {
+                    val = decodeURIComponent(val);
+                }
+                val = AtomUI.parseValue(val);
+                r[key] = val;
+            }
+            return r;
+        };
+        return AtomUI;
+    }());
+    WebAtoms.AtomUI = AtomUI;
+})(WebAtoms || (WebAtoms = {}));
+var WebAtoms;
+(function (WebAtoms) {
+    var AtomUri = /** @class */ (function () {
+        function AtomUri(url) {
+            var path;
+            var query = "";
+            var hash = "";
+            var t = url.split("?");
+            path = t[0];
+            if (t.length === 2) {
+                query = t[1] || "";
+                t = query.split("#");
+                query = t[0];
+                hash = t[1] || "";
+            }
+            else {
+                t = path.split("#");
+                path = t[0];
+                hash = t[1] || "";
+            }
+            // extract protocol and domain...
+            var scheme = location.protocol;
+            var host = location.host;
+            var port = location.port;
+            var i = path.indexOf("//");
+            if (i !== -1) {
+                scheme = path.substr(0, i);
+                path = path.substr(i + 2);
+                i = path.indexOf("/");
+                if (i !== -1) {
+                    host = path.substr(0, i);
+                    path = path.substr(i + 1);
+                    t = host.split(":");
+                    if (t.length > 1) {
+                        host = t[0];
+                        port = t[1];
+                    }
+                }
+            }
+            this.host = host;
+            this.protocol = scheme;
+            this.port = port;
+            this.path = path;
+            this.query = WebAtoms.AtomUI.parseUrl(query);
+            this.hash = WebAtoms.AtomUI.parseUrl(hash);
+        }
+        return AtomUri;
+    }());
+    WebAtoms.AtomUri = AtomUri;
+})(WebAtoms || (WebAtoms = {}));
 // tslint:disable
 // Test dummy
 // Do not use in live

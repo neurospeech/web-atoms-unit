@@ -1,3 +1,16 @@
+var WebAtoms;
+(function (WebAtoms) {
+    var AtomControl = /** @class */ (function () {
+        function AtomControl(e) {
+            this._element = e;
+        }
+        AtomControl.prototype.init = function () {
+            console.log("init");
+        };
+        return AtomControl;
+    }());
+    WebAtoms.AtomControl = AtomControl;
+})(WebAtoms || (WebAtoms = {}));
 // tslint:disable
 // Test dummy
 // Do not use in live
@@ -83,7 +96,6 @@ var Dispatcher = /** @class */ (function () {
     };
     return Dispatcher;
 }());
-var WebAtoms = window["WebAtoms"];
 WebAtoms["dispatcher"] = new Dispatcher();
 var AtomDate = window["AtomDate"];
 var AtomEnumerator = /** @class */ (function () {

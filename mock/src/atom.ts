@@ -98,7 +98,6 @@ class AtomPromise{
         }
     }
 
-    var WebAtoms = window["WebAtoms"];
     WebAtoms["dispatcher"] = new Dispatcher();
 
     var AtomDate = window["AtomDate"];
@@ -379,4 +378,5 @@ class AtomPromise{
     for(var item in AtomBinder){
         window["AtomBinder"][item] = AtomBinder[item];
     }
+    
     

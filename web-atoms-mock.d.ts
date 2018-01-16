@@ -1,3 +1,10 @@
+declare namespace WebAtoms {
+    class AtomControl {
+        _element: HTMLElement;
+        constructor(e: HTMLElement);
+        init(): void;
+    }
+}
 declare class AtomPromise {
     aborted: boolean;
     success: Array<() => void>;
@@ -17,7 +24,6 @@ declare class Dispatcher {
     callLater(f: () => void): void;
     run(): void;
 }
-declare var WebAtoms: any;
 declare var AtomDate: any;
 declare class AtomEnumerator {
     a: any;

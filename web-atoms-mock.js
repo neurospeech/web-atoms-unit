@@ -112,6 +112,8 @@ var WebAtoms;
     }());
     WebAtoms.AtomUri = AtomUri;
 })(WebAtoms || (WebAtoms = {}));
+// tslint:disable-next-line:no-string-literal
+window["AtomUri"] = WebAtoms.AtomUri;
 // tslint:disable
 // Test dummy
 // Do not use in live

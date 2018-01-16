@@ -1,5 +1,7 @@
 namespace WebAtoms {
     export class AtomUri {
+        hash: any;
+        query: any;
         path: string;
         port: string;
         protocol: string;
@@ -55,3 +57,6 @@ namespace WebAtoms {
         }
     }
 }
+
+// tslint:disable-next-line:no-string-literal
+window["AtomUri"] = WebAtoms.AtomUri;

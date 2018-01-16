@@ -13,6 +13,8 @@ declare namespace WebAtoms {
 }
 declare namespace WebAtoms {
     class AtomUri {
+        hash: any;
+        query: any;
         path: string;
         port: string;
         protocol: string;

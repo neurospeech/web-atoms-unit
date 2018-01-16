@@ -46,6 +46,6 @@ namespace WebAtoms {
                 r[key] = val;
             }
             return r;
-        },
+        }
     }
 }
